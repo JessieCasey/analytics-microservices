@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: api-service
+
+  data:
+    mongodb:
+      auto-index-creation: true
+      uri: mongodb://localhost:27017/analytics
+
+server:
+  port: 8080
+  tomcat:
+    accept-count: 100
+
+logging:
+  level:
+    root: INFO
+    edu.analytics: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,threaddump,heapdump
+  metrics:
+    enable:
+      all: true
