@@ -11,12 +11,11 @@
 
     <modules>
         <module>api-service</module>
-        <module>gateway-service</module>
     </modules>
 
 
     <properties>
-        <java.version>24</java.version>
+        <java.version>17</java.version>
         <lombok.version>1.18.38</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <spring.boot.version>3.4.5</spring.boot.version>

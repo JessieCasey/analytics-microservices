@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface PriceMapper extends EntityDtoMapper<Price,PriceDto> {
+public interface PriceMapper extends EntityDtoMapper<Price, PriceDto> {
 
     PriceDto toDto(Price price);
 

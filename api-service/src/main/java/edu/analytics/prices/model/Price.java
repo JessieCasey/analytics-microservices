@@ -25,7 +25,6 @@ public class Price {
     private BigDecimal high;
     private BigDecimal low;
     private BigDecimal close;
-    private BigDecimal adj_close;
     private BigDecimal volume;
 
 }

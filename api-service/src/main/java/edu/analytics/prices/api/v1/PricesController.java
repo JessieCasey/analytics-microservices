@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/prices")
+@RequestMapping("/api/public/v1/prices")
 public class PricesController extends BaseController<Price, PriceDto> {
 
     public PricesController(MongoTemplate mongo, PriceMapper priceMapper) {

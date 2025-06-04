@@ -11,4 +11,6 @@ public class IndicatorResult {
     private double rsi;
     private double bbUpper;
     private double bbLower;
+    private final double maxDrawdown;
+    private final long recoveryTimeBars;
 }
