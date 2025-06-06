@@ -1,58 +1,36 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Default (no profile) – for local development on your laptop
+# Spring will bind to localhost:9002 and connect to a “real” Mongo at localhost.
+# ─────────────────────────────────────────────────────────────────────────────
 server:
   port: 9002
   error:
     include-message: always
     include-binding-errors: always
+
 spring:
   application:
     name: price-service
+
   data:
     mongodb:
       uri: mongodb://localhost:27017/price-db
       auto-index-creation: true
-logging:
-  level:
-    root: INFO
-    io.javatab.microservices.composite.review: DEBUG
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{trace_id:-N/A}] [%X{span_id:-N/A}] %-5level %logger{36} - %msg%n"
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "health,info,metrics,prometheus"
-  health:
-    livenessstate:
-      enabled: true
-    readinessstate:
-      enabled: true
-  endpoint:
-    health:
-      show-details: always
-  metrics:
-    tags:
-      application: ${spring.application.name}
-      uri: "http_server_requests"
-    endpoint:
-      metrics:
-        enabled: true
-      prometheus:
-        enabled: true
-      health:
-        show-details: always
-    distribution:
-      percentiles-histogram: # enable histogram for percentile
-        http.server.requests: true
-      slo:
-        http.server.requests: 10ms, 50ms, 100ms, 500ms, 1s
 
 ---
+# ─────────────────────────────────────────────────────────────────────────────
+# “docker” profile – only active when SPRING_PROFILES_ACTIVE=docker
+# Connects to the container named “mongo” and listens on port 8080.
+# ─────────────────────────────────────────────────────────────────────────────
 spring:
   config:
     activate:
       on-profile: docker
+
   data:
     mongodb:
-      uri: mongodb://mongodb:27017/price-db
+      uri: mongodb://mongo:27017/price-db       # ← use “mongo” here
+      auto-index-creation: true
+
 server:
   port: 8080

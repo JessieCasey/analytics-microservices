@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - backend
+
+  mongo-express:
+    image: mongo-express:1.0.2
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_BASICAUTH: "false"
+    networks:
+      - backend
+    depends_on:
+      - mongo
+
+  api-service:
+    build:
+      context: .
+      dockerfile: api-service/Dockerfile
+    image: price-service:latest
+    container_name: price-service
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    depends_on:
+      - mongo
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATA_MONGODB_HOST=mongo
+      - SPRING_DATA_MONGODB_PORT=27017
+
+volumes:
+  mongo-data:
+
+networks:
+  backend:
